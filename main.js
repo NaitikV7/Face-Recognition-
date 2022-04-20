@@ -1,32 +1,38 @@
-Webcam.set({
+
+Webcam.attach( '#camera' );
+
+camera = document.getElementById("camera");
+      
+  Webcam.set({
     width:350,
     height:300,
-    image_format :'png' ,
+    image_format : 'png',
     png_quality:90
-});
+  });
 
-camera =document.getElementById("camera");
-Webcam.attach('#camera');
-
-function take_snapshot() 
+function take_snapshot()
 {
-
- Webcam.snap(function(data_uri){
-    document.getElementById("result").innerHTML = '<img id="selfie_image" src="'+data_uri+'"/>';
- });
-
+    Webcam.snap(function(data_uri) {
+        document.getElementById("result").innerHTML = '<img id="selfie_image" src="'+data_uri+'"/>';
+    });
 }
-console.log('ml5 version:',ml5.version);
+
+  console.log('ml5 version:', ml5.version);
+  
+ 
 classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/q15zCSfT3/model.json',modelLoaded);
 
-function modelLoaded() {
+
+  function modelLoaded() {
     console.log('Model Loaded!');
   }
+      
   function check()
   {
     img = document.getElementById('selfie_image');
     classifier.classify(img, gotResult);
   }
+
 
 
 function gotResult(error, results) {
@@ -40,3 +46,4 @@ function gotResult(error, results) {
     document.getElementById("result_object_accuracy").innerHTML = results[0].confidence.toFixed(3);
   }
 }
+
